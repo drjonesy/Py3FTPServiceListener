@@ -6,11 +6,11 @@ These files define the directory (folders) that will be constantly watched, the 
 The application looks at specified directory, generates a list of files found in the directory, uploads each file using FTP if the directory is greater than zero, then moves the file to a backup directory for later use and/or comparison.
 
 
-### Structure
+## Structure
 - FTPConnect.py `class`
 - FTPService.py `class`
 - ftp_listener_service.py `main`
-- settings
+- settings\
     - config.json `config file`
     - folders.json `config file`
 
