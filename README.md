@@ -1,9 +1,30 @@
 # Py3FTPServiceListener
 
-An application that runs a multi-threaded infite loop. The application uses two external JSON files found in the `/settings` directory.
-These files define the directories (folders) that will be constantly watched, the FTP preferences, and seconds interval which is used to tell the application how often it should execute. 
+A simple Python3 FTP Application broken up into three parts. The main program uses the class `FTPConnector` found in the `FTPConnect.py` file. This program can be run manually by itself. To extend its functionality to act as a constant `System File Watcher` it includes the class `FTPServiceListener` which extends `Thread` found in the `FTPService.py` file. Use the `FTPServiceListener` with the `ftp_listener_service.py` file to run an infite loop with threading. 
 
-The application looks at specified directory, generates a list of files found in the directory, uploads each file using FTP if the directory is greater than zero, then moves the file to a backup directory for later use and/or comparison.
+Use the two external `JSON` files located in the `settings` directory to manage the application.
+
+> config.json
+
+Defines the host, username, and password for the designated FTP server. "seconds" = the number of seconds to **_wait_** before running the script again. (Used only with the FTPServiceListener)
+
+    {
+        "host": "",
+        "user": "",
+        "pass": "",
+        "seconds": 10
+    }
+
+> folders.json
+
+The sample **_src_** directory represents a web directory on a Linux Ubuntu server. The **_dst_** directory is pointing to the designated directory on the connected FTP server.
+
+    {
+        "3646": {
+            "src": "/var/www/hem/3646",
+            "dst": "/hemdata/binary/3646"
+        }
+    }
 
 
 ## Structure
