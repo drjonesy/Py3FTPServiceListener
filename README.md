@@ -1,6 +1,17 @@
 # Py3FTPServiceListener
 
-A simple Python3 FTP Application broken up into three parts. The main program uses the class `FTPConnector` found in the `FTPConnect.py` file. This program can be run manually by itself. To extend its functionality to act as a constant `System File Watcher` it includes the class `FTPServiceListener` which extends `Thread` found in the `FTPService.py` file. Use the `FTPServiceListener` with the `ftp_listener_service.py` file to run an infite loop with threading. 
+A simple Python3 FTP Application with log and file back options. The application is cross-platform but focused on Linux Server development.
+
+#### _Basic Overview_
+Imports two external JSON formatted files: `/settings/config.json` and `/settings/folders.json` <br>
+Using these two files, the application attempts to connect to an FTP Server, copies new files listed in the designated local `src:` directory to the `dst:` directory on the FTP Server.
+
+#### _Setup Options_
+You have 2 to 3 options for configuring the application depending upon the Operation System. 
+
+- [Cron Job](#cronjob)
+- [Service Edition](#service) _( Infinite Loop )_
+- [Manual](#manual)
 
 ## Application Structure
 ```bash
@@ -9,6 +20,9 @@ A simple Python3 FTP Application broken up into three parts. The main program us
     |__ CronChecker.py
     |__ FTPConnect.py
     |__ run.py
+|__ manual
+    |__ FTPConnect.py
+    |__ RunOnce.py
 |__ service
     |__ FTPConnect.py
     |__ FTPService.py
@@ -63,7 +77,11 @@ The only requirement is that the **src** and **dst** directories exist before ru
 
 Depending upon the system architecture you may need to provide absolute pathing to both the `config.json` and `folders.json`
 
-## Cron Job [ crontab -e ]
+
+## <u id="cronjob">Cron Job</u> [ crontab -e ]
+
+`Linux Server` focused but you can use the `Windows Task Schedular` as an alternative to the `crontab -e`<br>
+Contains three files: `CronChecker.py, FTPConnect.py, run.py`<br>
 
 Before setting up and running the cronjob you might need make the script executable.
 
@@ -139,4 +157,18 @@ If you'd like modify the intervals I recommend using:<br> https://crontab-genera
 > _If the application isn't running. Try executing the application manually first._
 ```bash
 python3 /usr/local/bin/Py3FTPServiceListener/cron/run.py
+```
+
+## <u id="service">Service Edition</u> _( Infinite Loop )_
+Just like the cronjob version, make sure to test out this system manually before converting it to a Linux Daemon. 
+
+```
+python3 /usr/local/bin/Py3FTPServiceListener/service/RunService.py 
+```
+
+
+## <u id="manual">Manual</u>
+To execute the application only once without any cronjob checker or inifinite loop use the `RunOnce.py` application located in the `/manual/` directory
+```
+python3 /usr/local/bin/Py3FTPServiceListener/manual/RunOnce.py 
 ```
