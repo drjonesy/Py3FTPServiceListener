@@ -40,17 +40,17 @@ class FTPConnector:
             ftp.storbinary('STOR {}'.format(_dst), open("{}".format(_src), "rb" ) )
             ftp.close()
     
-    def __CreateBackupDir(self, _dir=""):
+    def __CreateBackupDir(self, _dir="", _saveDir="_save"):
         # create directory _backups if not exists
-        __backupsDir = os.path.join(_dir, "_backups") 
+        __backupsDir = os.path.join(_dir, _saveDir) 
         if os.path.isdir(__backupsDir) == False:
             os.mkdir(path=__backupsDir)
 
-    def BackupFile(self, directory="", _src=""):
+    def BackupFile(self, directory="", _src="", saveDir="_save"):
         """Moves file to _backups directory"""
-        self.__CreateBackupDir(_dir = directory)
+        self.__CreateBackupDir(_dir=directory, _saveDir=saveDir)
         filename = os.path.basename(_src)
-        shutil.move(src=_src, dst=os.path.join(directory, "_backups", filename))
+        shutil.move(src=_src, dst=os.path.join(directory, saveDir, filename))
 
 
 # ftpc = FTPConnector()
