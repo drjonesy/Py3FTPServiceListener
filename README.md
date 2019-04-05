@@ -2,6 +2,8 @@
 
 A simple Python3 FTP Application with log and file back options. The application is cross-platform but focused on Linux Server development.
 
+Licensed under the **GNU General Public License v3.0**
+
 #### _Basic Overview_
 Imports two external JSON formatted files: `/settings/config.json` and `/settings/folders.json` <br>
 Using these two files, the application attempts to connect to an FTP Server, copies new files listed in the designated local `src:` directory to the `dst:` directory on the FTP Server.
@@ -43,6 +45,7 @@ You have 2 to 3 options for configuring the application depending upon the Opera
                     |__ files
                         |__ sample.txt
 |__ .gitignore
+|__ LICENSE.md
 |__ README.md
 ```
 
