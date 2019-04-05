@@ -72,6 +72,7 @@ class FTPConnector:
         
 
 
+# ==== FTPConnector Sample ===
 
 ftpc = FTPConnector()
 ftpc.Settings(filepath="settings/config.json")
@@ -83,6 +84,6 @@ for key,value in Folders.items():
     filesDir = os.path.join(value['src'], "files")
     for srcFilepath in ftpc.DirList(filesDir):
         dstFilepath = os.path.join(value['dst'], os.path.basename(srcFilepath))
-        # ftpc.UploadFile(_dst=dstFilepath, _src=srcFilepath)
+        ftpc.UploadFile(_dst=dstFilepath, _src=srcFilepath)
         ftpc.SaveCopy(srcDir=value['src'], saveDir=".save", filePath=srcFilepath)
         ftpc.Log(srcDir=value['src'], logDir=".log", filePath=srcFilepath, fileExtension="txt")
