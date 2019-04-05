@@ -2,6 +2,7 @@ from ftplib import FTP
 import shutil
 import os
 import json
+from datetime import datetime, date, time
 
 class FTPConnector:
     def __init__(self, ftp_host="", ftp_user="", ftp_password=""):
@@ -40,26 +41,47 @@ class FTPConnector:
             ftp.storbinary('STOR {}'.format(_dst), open("{}".format(_src), "rb" ) )
             ftp.close()
     
-    def __CreateBackupDir(self, _dir="", _saveDir="_save"):
+    def __CreateDir(self, src_dir="", new_dir=""):
         # create directory _backups if not exists
-        __backupsDir = os.path.join(_dir, _saveDir) 
-        if os.path.isdir(__backupsDir) == False:
-            os.mkdir(path=__backupsDir)
+        __dir = os.path.join(src_dir, new_dir) 
+        if os.path.isdir(__dir) == False:
+            os.mkdir(path=__dir)
+    
 
-    def BackupFile(self, directory="", _src="", saveDir="_save"):
+    def SaveCopy(self, srcDir="", saveDir=".save"):
         """Moves file to _backups directory"""
-        self.__CreateBackupDir(_dir=directory, _saveDir=saveDir)
-        filename = os.path.basename(_src)
-        shutil.move(src=_src, dst=os.path.join(directory, saveDir, filename))
+        self.__CreateDir(src_dir=srcDir, new_dir=saveDir)
+        # filename = os.path.basename(_src)
+        # shutil.move(src=_src, dst=os.path.join(directory, saveDir, filename))
+
+    def Log(self, srcDir="", logDir=".log", filePath="", fileExtension="txt"):
+        """Create new hidden log directory if not exists. 
+        Create new log file for current date if not exists.
+        For each file transferred to FTP and backedup
+        append daily log file with: Time | FileName """
+        self.__CreateDir(src_dir=srcDir, new_dir=logDir)
+        today = datetime.now().date()
+        tm = datetime.now().time().replace(microsecond=0)
+        logger = os.path.basename(srcDir)
+        logFilename = "{}-{}.{}".format(today, logger, fileExtension)
+        filename = os.path.basename(filePath)
+        _filepath = os.path.join(srcDir, logFilename)
+        with open(_filepath, "a+") as _file:
+            _file.write("{} | {}\n".format(tm, filename))
+        
 
 
-# ftpc = FTPConnector()
-# ftpc.Settings(filepath="settings/config.json")
-# ftpc.Folders(filepath="settings/folders.json")
-# Settings = ftpc.Settings()
-# Folders = ftpc.Folders()
-# ftpc.Connect(ftp_host=Settings['host'], ftp_user=Settings['user'], ftp_password=Settings['pass'])
-# for key,value in Folders.items():
-#     for filepath in ftpc.DirList(value['src']):
-#         filename = os.path.basename(filepath)
-#         ftpc.UploadFile(dst=os.path.join(value['dst'], filename), src=filepath)
+
+ftpc = FTPConnector()
+ftpc.Settings(filepath="settings/config.json")
+ftpc.Folders(filepath="settings/folders.json")
+Settings = ftpc.Settings()
+Folders = ftpc.Folders()
+ftpc.Connect(ftp_host=Settings['host'], ftp_user=Settings['user'], ftp_password=Settings['pass'])
+for key,value in Folders.items():
+    filesDir = os.path.join(value['src'], "files")
+    for srcFilepath in ftpc.DirList(filesDir):
+        dstFilepath = os.path.join(value['dst'], os.path.basename(srcFilepath))
+        # ftpc.UploadFile(_dst=dstFilepath, _src=srcFilepath)
+        ftpc.SaveCopy(srcDir=value['src'], saveDir=".save")
+        ftpc.Log(srcDir=value['src'], logDir=".log", filePath=srcFilepath, fileExtension="txt")

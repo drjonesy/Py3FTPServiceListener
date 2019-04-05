@@ -1,6 +1,6 @@
 {
-    "host": "",
-    "user": "",
-    "pass": "",
+    "host": "truckdata.transpowerusa.com",
+    "user": "trucker",
+    "pass": "Electave13!",
     "seconds": 10
 }
