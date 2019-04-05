@@ -14,6 +14,9 @@ You have 2 to 3 options for configuring the application depending upon the Opera
 - [Manual](#manual)
 
 ## Application Structure
+
+> The `/var/www/html/hem/3646/` directory represents an html directory on an Ubunut Linux Server with LAMP installed. 
+
 ```bash
 | Py3FTPServiceListener
 |__ cron
@@ -32,12 +35,13 @@ You have 2 to 3 options for configuring the application depending upon the Opera
     |__ folders.json
 |__ var
     |__www
-        |__ hem
-            |__ 3646
-                |__ .log
-                |__ .save
-                |__ files
-                    |__ sample.txt
+        |__ html
+            |__ hem
+                |__ 3646
+                    |__ .log
+                    |__ .save
+                    |__ files
+                        |__ sample.txt
 |__ .gitignore
 |__ README.md
 ```
