@@ -39,7 +39,6 @@ You have 2 to 3 options for configuring the application depending upon the Opera
                 |__ files
                     |__ sample.txt
 |__ .gitignore
-|__ FTPConnect_Template.py
 |__ README.md
 ```
 
