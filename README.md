@@ -12,9 +12,6 @@ A simple Python3 FTP Application broken up into three parts. The main program us
 
 Use the two external `JSON` files located in the `settings` directory to manage the application.
 
-
-
-
 > config.json
 
 Defines the host, username, and password for the designated FTP server. "seconds" = the number of seconds to **_wait_** before running the script again. (Used only with the FTPServiceListener)
@@ -48,6 +45,11 @@ The only requirement is that the **src** and **dst** directories exist before ru
 Depending upon the system architecture you may need to provide absolute pathing to both the `config.json` and `folders.json`
 
 ## Cron Job [ crontab -e ]
+
+Before setting up and running the cronjob you might need make the script executable.
+
+> chmod u+x /path/to/script.py
+
 ```python
 #!/usr/bin/env python3
 
