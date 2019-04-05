@@ -48,11 +48,12 @@ class FTPConnector:
             os.mkdir(path=__dir)
     
 
-    def SaveCopy(self, srcDir="", saveDir=".save"):
+    def SaveCopy(self, srcDir="", saveDir=".save", filePath=""):
         """Moves file to _backups directory"""
         self.__CreateDir(src_dir=srcDir, new_dir=saveDir)
-        # filename = os.path.basename(_src)
-        # shutil.move(src=_src, dst=os.path.join(directory, saveDir, filename))
+        filename = os.path.basename(filePath)
+        dstFilepath = os.path.join(srcDir, saveDir, filename)
+        shutil.move(src=filePath, dst=dstFilepath)
 
     def Log(self, srcDir="", logDir=".log", filePath="", fileExtension="txt"):
         """Create new hidden log directory if not exists. 
@@ -83,5 +84,5 @@ for key,value in Folders.items():
     for srcFilepath in ftpc.DirList(filesDir):
         dstFilepath = os.path.join(value['dst'], os.path.basename(srcFilepath))
         # ftpc.UploadFile(_dst=dstFilepath, _src=srcFilepath)
-        ftpc.SaveCopy(srcDir=value['src'], saveDir=".save")
+        ftpc.SaveCopy(srcDir=value['src'], saveDir=".save", filePath=srcFilepath)
         ftpc.Log(srcDir=value['src'], logDir=".log", filePath=srcFilepath, fileExtension="txt")
