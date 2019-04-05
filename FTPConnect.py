@@ -65,7 +65,7 @@ class FTPConnector:
         logger = os.path.basename(srcDir)
         logFilename = "{}-{}.{}".format(today, logger, fileExtension)
         filename = os.path.basename(filePath)
-        _filepath = os.path.join(srcDir, logFilename)
+        _filepath = os.path.join(srcDir, logDir, logFilename)
         with open(_filepath, "a+") as _file:
             _file.write("{} | {}\n".format(tm, filename))
         
