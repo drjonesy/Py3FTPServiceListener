@@ -20,8 +20,10 @@ class FTPServiceListener(Thread):
         while True:
             sleep(Settings['seconds']) # wait then execute
             for key,value in Folders.items():
-                if len(ftpc.DirList(value['src'])) > 0:
-                    for filepath in ftpc.DirList(value['src']):
-                        filename = os.path.basename(filepath)
-                        ftpc.UploadFile(_dst=os.path.join(value['dst'], filename), _src=filepath)
-                        ftpc.BackupFile(directory=value['src'], _src=filepath)
+                filesDir = os.path.join(value['src'], "files")
+                if len(filesDir) > 0:
+                    for srcFilepath in ftpc.DirList(filesDir):
+                        dstFilepath = os.path.join(value['dst'], os.path.basename(srcFilepath))
+                        ftpc.UploadFile(_dst=dstFilepath, _src=srcFilepath)
+                        ftpc.SaveCopy(srcDir=value['src'], saveDir=".save", filePath=srcFilepath)
+                        ftpc.Log(srcDir=value['src'], logDir=".log", filePath=srcFilepath, fileExtension="txt")
