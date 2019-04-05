@@ -36,3 +36,11 @@ The sample **_src_** directory represents a web directory on a Linux Ubuntu serv
     - folders.json `config file`
 
 
+## Requirements
+
+The only requirement is that the **src** and **dst** directories exist before running the program in the `settings/folders.json` file.
+
+## Note:
+
+Depending upon the system architecture you may need to provide absolute pathing to both the `config.json` and `folders.json`
+
