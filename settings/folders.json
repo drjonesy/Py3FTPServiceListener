@@ -1,6 +1,6 @@
 {
     "3646": {
-        "src": "C:/Users/rjones/Documents/LOCAL_DEV/Py3FTPServiceListener/var/www/hem/3646",
+        "src": "/var/www/html/hem/3646",
         "dst": "/hemdata/binary/3646"
     }
 }
