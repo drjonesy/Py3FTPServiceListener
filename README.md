@@ -2,13 +2,26 @@
 
 A simple Python3 FTP Application broken up into three parts. The main program uses the class `FTPConnector` found in the `FTPConnect.py` file. This program can be run manually by itself. To extend its functionality to act as a constant `System File Watcher` it includes the class `FTPServiceListener` which extends `Thread` found in the `FTPService.py` file. Use the `FTPServiceListener` with the `ftp_listener_service.py` file to run an infite loop with threading. 
 
-## Structure
-- FTPConnect.py `class`
-- FTPService.py `class`
-- ftp_listener_service.py `infinite loop`
-- settings\
-    - config.json `config file`
-    - folders.json `config file`
+## Application Structure
+```bash
+| Py3FTPServiceListener
+|__ cron
+    |__ run.py
+|__ service
+    |__ FTPService.py
+    |__ RunService.py
+|__ setting
+    |__ config.json
+    |__ folders.json
+|__ var
+    |__www
+        |__ hem
+            |__ 3646
+                |__ .log
+                |__ .save
+                |__ files
+                    |__ sample.txt
+```
 
 Use the two external `JSON` files located in the `settings` directory to manage the application.
 
